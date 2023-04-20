@@ -17,7 +17,10 @@ By default, the script uses the iris.csv dataset file in the same directory as i
 To run the pipeline in a Docker container, you can use the following commands:
 
 ```bash
-docker build -t ...
+docker build -t iris-pipeline .
+docker run -v $(pwd)/artifacts:/app/artifacts iris-pipeline
 ```
+
+NOTE: for more on using Docker volumes, see: [https://docs.docker.com/storage/volumes/](https://docs.docker.com/storage/volumes/).
 
 This will build a Docker image for the pipeline, and then run a container based on that image. The container will train the classifier and save the model files to disk during startup.
