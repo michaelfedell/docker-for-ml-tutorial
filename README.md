@@ -10,6 +10,16 @@ Both sub-projects include a significant amount of python dependencies; there is 
 
 See more about Docker in the included [Dockerfile Basics](./dockerfile-basics.md) file.
 
+## Activity
+
+You should examine the included applications and their respective `pyproject.toml` files. This will help you get a feel for their dependencies and how they relate to each other. You should then perform the following:
+
+- [ ] write `pipeline/Dockerfile`
+- [ ] write and document `docker build ...` and `docker run ...` commands that make proper use of the application (saved artifacts should be persisted to your local filesystem)
+- [ ] write `app/Dockerfile`
+- [ ] write and document `docker build ...` and `docker run ...` commands that make proper use of the application (web application should be exposed/accessible from localhost in your browser)
+- [ ] BONUS: write a `./Dockerfile` that makes use of multi-stage builds to run the pipeline during the build-phase and copy its artifacts to the second stage which serves the inference application
+
 ## Running Locally
 
 Lastly, each sub-project also uses `poetry` to define the python package, manage its dependencies, and build the environment. Poetry is a great tool for creating python packages; you can read more about it [below](#setting-up-and-using-poetry).
