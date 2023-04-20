@@ -1,0 +1,56 @@
+# Base image
+FROM python:3.9.7-slim-buster AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Install build dependencies
+RUN apt-get update && \
+    apt-get install -y build-essential && \
+    apt-get install -y python3-dev && \
+    apt-get install -y libpq-dev
+
+# Copy requirements file
+COPY pipeline/poetry.lock pipeline/pyproject.toml ./
+
+# Install poetry and project dependencies
+RUN pip install poetry && \
+    poetry config virtualenvs.create false && \
+    poetry install --no-interaction --no-ansi
+
+# Copy source code
+COPY pipeline/src .
+
+# Build machine learning model
+RUN python train_model.py
+
+# Second stage of multi-stage build
+FROM python:3.9.7-slim-buster
+
+# Set working directory
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apt-get update && \
+    apt-get install -y libpq-dev && \
+    apt-get clean
+
+# Copy trained model artifact from builder stage
+COPY --from=builder /app/model.joblib /app/model.joblib
+
+# Copy requirements file
+COPY app/poetry.lock app/pyproject.toml ./
+
+# Install poetry and project dependencies
+RUN pip install poetry && \
+    poetry config virtualenvs.create false && \
+    poetry install --no-interaction --no-ansi
+
+# Copy source code
+COPY app/src .
+
+# Expose port for FastAPI application
+EXPOSE 8000
+
+# Start FastAPI application
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
