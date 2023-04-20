@@ -8,6 +8,8 @@ Each sub-project includes a `README` with more details about the application and
 
 Both sub-projects include a significant amount of python dependencies; there is some overlap as well as some unique packages used in each. To simplify the development and deployment of these applications, we will use Docker to build deterministic, platform-agnostic **Images**. The same images we run on our laptops could be run in a production setting on some application server, kubernetes cluster, or other distributed workflow service.
 
+See more about Docker in the included [Dockerfile Basics](./dockerfile-basics.md) file.
+
 ## Running Locally
 
 Lastly, each sub-project also uses `poetry` to define the python package, manage its dependencies, and build the environment. Poetry is a great tool for creating python packages; you can read more about it [below](#setting-up-and-using-poetry).
