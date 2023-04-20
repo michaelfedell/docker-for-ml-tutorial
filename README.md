@@ -2,11 +2,17 @@
 
 This project includes two sub-projects that are represent two parts of a Machine Learning initiative. A model training pipeline exists in the [pipeline/](./pipeline/) directory. A REST API web application exists in the [app/](./app/) directory to perform inference with the trained model.
 
-Both sub-projects include a significant amount of python dependencies; there is some overlap as well as some unique packages used in each. To simplify the development and deployment of these applications, we will use Docker to build deterministic, platform-agnostic **Images**. The same images we run on our laptops could be run in a production setting on some application server, kubernetes cluster, or other distributed workflow service.
-
 Each sub-project includes a `README` with more details about the application and how it can be run. We will work on writing the `Dockerfile` as well as the build and run commands in our lab activity.
 
-Lastly, each sub-project also uses `poetry` to define the python package, manage its dependencies, and build the environment. Poetry is a great tool for creating python packages; you can read more about it below. Poetry keeps dependencies listed in `pyproject.toml` files and explicitly enumerated in `poetry.lock`. These files can be used to create new virtual environments; poetry can also export these dependencies to a `requirements.txt` file to be used with other virtual environment management solutions.
+## Why Docker
+
+Both sub-projects include a significant amount of python dependencies; there is some overlap as well as some unique packages used in each. To simplify the development and deployment of these applications, we will use Docker to build deterministic, platform-agnostic **Images**. The same images we run on our laptops could be run in a production setting on some application server, kubernetes cluster, or other distributed workflow service.
+
+## Running Locally
+
+Lastly, each sub-project also uses `poetry` to define the python package, manage its dependencies, and build the environment. Poetry is a great tool for creating python packages; you can read more about it [below](#setting-up-and-using-poetry).
+
+Poetry keeps dependencies listed in `pyproject.toml` files and explicitly enumerated in `poetry.lock`. These files can be used to create new virtual environments; poetry can also export these dependencies to a `requirements.txt` file to be used with other virtual environment management solutions.
 
 We will talk more about Poetry in a later lab session. For now, you are welcome to read about it and try it out, or just create a standard virtual environment with the following (run from each of the sub-project directories):
 
@@ -17,6 +23,20 @@ pip install -r requirements.txt
 ```
 
 NOTE: make sure you run the above with a version of python >= 3.9
+
+## Makefile
+
+Both sub-projects also include the start of a Makefile to simplify the execution of common commands used for building and running the application. We will not cover Makefile's in depth this year, but you can read about them in this [Makefile Lab from last year](https://github.com/MSIA/423-makefile-lab-activity). The major caveat is that `make` is not compatible with Windows machines. In this project, we will use them as a simple way for documenting and executing lengthy shell commands. For example:
+
+```shell
+make requirements
+```
+
+instead of:
+
+```shell
+poetry export -f requirements.txt --output requirements.txt --without-hashes
+```
 
 ## Setting up and using Poetry
 
