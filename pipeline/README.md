@@ -4,10 +4,10 @@ This is a simple machine learning pipeline that trains a classifier on the [Iris
 
 ## Usage
 
-To use this pipeline, you can run the `train_classifier.py` script, which will train the classifier and save the model files to disk.
+To use this pipeline, you can run the `main.py` script, which will train the classifier and save the model files to disk.
 
 ```bash
-python train_classifier.py
+python src/main.py
 ```
 
 By default, the script uses the iris.csv dataset file in the same directory as input data. You can modify this file to use your own data. The script outputs two joblib files, `model.joblib` and `iris.joblib`, which contain the trained classifier and preprocessed data respectively.
